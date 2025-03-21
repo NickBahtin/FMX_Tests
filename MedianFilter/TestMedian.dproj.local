@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.329,D:\Borland\VCL.D12\fmxfp\Test\MedianFilter\uMain.fmx=C:\Users\NickB\Documents\Embarcadero\Studio\Projects\Unit3.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.329,D:\Borland\VCL.D12\fmxfp\Test\MedianFilter\uMain.pas=C:\Users\NickB\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.009,=C:\Users\NickB\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.274,D:\Borland\VCL.D12\fmxfp\Test\MedianFilter\TestMedian.dproj=C:\Users\NickB\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
