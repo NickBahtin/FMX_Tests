@@ -1,0 +1,40 @@
+unit uMain;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Layouts, FMX.Objects, FMX.Controls.Presentation, FMX.Edit, FMX.EditBox,
+  FMX.NumberBox;
+
+type
+  TForm1 = class(TForm)
+    Edit1: TEdit;
+    Text1: TText;
+    Layout1: TLayout;
+    Button1: TButton;
+    Layout2: TLayout;
+    Edit2: TEdit;
+    Text2: TText;
+    Button2: TButton;
+    Layout3: TLayout;
+    Text3: TText;
+    Button3: TButton;
+    NumberBox1: TNumberBox;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+uses FmxHelper;
+
+{$R *.fmx}
+
+end.

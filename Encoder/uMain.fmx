@@ -1,0 +1,128 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = #1050#1086#1076#1080#1088#1086#1074#1082#1072' '#1076#1077#1082#1086#1076#1080#1088#1086#1074#1082#1072' '#1089#1090#1088#1086#1082#1080
+  ClientHeight = 112
+  ClientWidth = 427
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Align = Top
+    Padding.Top = 5.000000000000000000
+    Padding.Bottom = 5.000000000000000000
+    Margins.Top = 2.000000000000000000
+    Margins.Bottom = 2.000000000000000000
+    Position.Y = 2.000000000000000000
+    Size.Width = 427.000000000000000000
+    Size.Height = 33.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object Edit1: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Client
+      TabOrder = 0
+      Size.Width = 216.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Text1: TText
+      Align = Left
+      Position.Y = 5.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      Text = #1048#1089#1093#1086#1076#1085#1099#1081
+    end
+    object Button1: TButton
+      Align = MostRight
+      Margins.Left = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Position.X = 342.000000000000000000
+      Position.Y = 5.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = #1050#1086#1076#1080#1088#1086#1074#1072#1090#1100
+      TextSettings.Trimming = None
+      OnClick = Edit1Change
+    end
+  end
+  object Layout2: TLayout
+    Align = Top
+    Padding.Top = 5.000000000000000000
+    Padding.Bottom = 5.000000000000000000
+    Margins.Top = 2.000000000000000000
+    Margins.Bottom = 2.000000000000000000
+    Position.Y = 39.000000000000000000
+    Size.Width = 427.000000000000000000
+    Size.Height = 33.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object Edit2: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Client
+      TabOrder = 0
+      Size.Width = 216.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Text2: TText
+      Align = Left
+      Position.Y = 5.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      Text = #1050#1086#1076#1080#1088#1086#1074#1072#1085#1085#1099#1081
+    end
+    object Button2: TButton
+      Align = MostRight
+      Margins.Left = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Position.X = 342.000000000000000000
+      Position.Y = 5.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = #1044#1077#1082#1086#1076#1080#1088#1086#1074#1072#1090#1100
+      TextSettings.Trimming = None
+      OnClick = Edit2Change
+    end
+  end
+  object Layout3: TLayout
+    Align = Top
+    Padding.Top = 5.000000000000000000
+    Padding.Bottom = 5.000000000000000000
+    Margins.Top = 2.000000000000000000
+    Margins.Bottom = 2.000000000000000000
+    Position.Y = 76.000000000000000000
+    Size.Width = 427.000000000000000000
+    Size.Height = 33.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Text3: TText
+      Align = Left
+      Position.Y = 5.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      Text = #1050#1083#1102#1095
+    end
+    object nbKey: TNumberBox
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Left
+      TabOrder = 1
+      Cursor = crIBeam
+      Max = 65535.000000000000000000
+      Value = 1969.000000000000000000
+      Position.X = 121.000000000000000000
+      Position.Y = 5.000000000000000000
+      Size.Width = 40.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+end
