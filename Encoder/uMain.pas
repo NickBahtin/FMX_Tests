@@ -6,23 +6,25 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
   FMX.Layouts, FMX.Objects, FMX.Controls.Presentation, FMX.Edit, FMX.EditBox,
-  FMX.NumberBox;
+  FMX.NumberBox, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo;
 
 type
-  TForm1 = class(TForm)
-    Edit1: TEdit;
+  TMainForm = class(TForm)
     Text1: TText;
     Layout1: TLayout;
     Button1: TButton;
     Layout2: TLayout;
-    Edit2: TEdit;
     Text2: TText;
     Button2: TButton;
     Layout3: TLayout;
     Text3: TText;
     nbKey: TNumberBox;
+    mmoOrigin: TMemo;
+    mmoCodered: TMemo;
+    Splitter1: TSplitter;
     procedure Edit2Change(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,7 +32,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  MainForm: TMainForm;
 
 implementation
 
@@ -38,14 +40,22 @@ uses FmxHelper;
 
 {$R *.fmx}
 
-procedure TForm1.Edit1Change(Sender: TObject);
+procedure TMainForm.Edit1Change(Sender: TObject);
 begin
-  Edit2.Text:=EncryptStr(Edit1.Text,Round(nbKey.value));
+  mmoCodered.Text:=EncryptStr(mmoOrigin.Text,Round(nbKey.value));
 end;
 
-procedure TForm1.Edit2Change(Sender: TObject);
+procedure TMainForm.Edit2Change(Sender: TObject);
 begin
-  Edit1.Text:=DecryptStr(Edit2.Text,Round(nbKey.value));
+  mmoOrigin.Text:=DecryptStr(mmoCodered.Text,Round(nbKey.value));
+end;
+
+procedure TMainForm.FormResize(Sender: TObject);
+begin
+  if Height<150 then Height:=150;
+  if Width<400 then Width:=400;
+
+  Layout1.Height:=(height - Layout3.Height) / 3 - 10;
 end;
 
 end.

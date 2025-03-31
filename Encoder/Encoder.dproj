@@ -300,6 +300,7 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <Icon_MainIcon>Encoder_Icon.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -309,7 +310,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="uMain.pas">
-            <Form>Form1</Form>
+            <Form>MainForm</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">
@@ -1313,11 +1314,9 @@
             <Platforms>
                 <Platform value="Android">True</Platform>
                 <Platform value="Android64">True</Platform>
-                <Platform value="iOSDevice32">False</Platform>
                 <Platform value="iOSDevice64">True</Platform>
                 <Platform value="iOSSimARM64">True</Platform>
                 <Platform value="Linux64">True</Platform>
-                <Platform value="OSX32">False</Platform>
                 <Platform value="OSX64">True</Platform>
                 <Platform value="OSXARM64">True</Platform>
                 <Platform value="Win32">True</Platform>
