@@ -1084,7 +1084,6 @@ begin
   end;
 end;
 
-
 function EncryptStr(const S :WideString; Key: LongWord): String;
 var   i,len          :Integer;
       RStr       :RawByteString;
@@ -1112,9 +1111,18 @@ begin
   SetLength(RStr, Length(tmpStr) div 2);
   i:= 1;
   try
-    while (i < Length(tmpStr)) do begin
-      RStrB[i div 2]:= StrToInt('$' + tmpStr[i] + tmpStr[i+1]);
-      Inc(i, 2);
+    while (i < Length(tmpStr)) do
+    begin
+      if (tmpStr[i] in ['0'..'9','A'..'F']) and
+         (tmpStr[i+1] in ['0'..'9','A'..'F'])  then
+      begin
+        RStrB[i div 2]:= StrToInt('$' + tmpStr[i] + tmpStr[i+1]);
+        Inc(i, 2);
+      end
+      else begin
+        Result:= '';
+        Exit;
+      end;
     end;
   except
     Result:= '';
