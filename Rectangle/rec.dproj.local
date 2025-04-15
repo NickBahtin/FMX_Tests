@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.220,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
+    <Transaction>2025.04.15 10:17:01.372,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
+    <Transaction>2025.04.15 10:31:19.377,D:\Borland\Work.FMX\Rectangle\uMain.pas=D:\Borland\Work.FMX\Unit1.pas</Transaction>
+    <Transaction>2025.04.15 10:31:19.377,D:\Borland\Work.FMX\Rectangle\uMain.fmx=D:\Borland\Work.FMX\Unit1.fmx</Transaction>
+    <Transaction>2025.04.15 10:31:29.495,D:\Borland\Work.FMX\Rectangle\rec.dproj=D:\Borland\Work.FMX\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
