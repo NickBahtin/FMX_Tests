@@ -1,0 +1,265 @@
+﻿unit uMain;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  Fmx.Grid, Fmx.StdCtrls,
+  FMX.Menus;
+
+  const
+    cKEY_Up=38;
+    cKEY_Down=40;
+    cKEY_Left=37;
+    cKEY_Right=39;
+    cRowSize=10;
+    cColSize=10;
+    cRecWidth=50;
+    cRecHeight=50;
+type
+  TSnakeItemType=(sitNone,sitHeadBottom,sitHeadLeft,sitHeadRight,sitHeadTop,sitTailLeft,sitTailRight,sitTailTop,sitTailBottom,sitStone,sitFruit,sitHBody,sirVBody);
+const
+  cSnakeItemTypeName:array[TSnakeItemType] of String=('sitNone','sitHeadBottom','sitHeadLeft','sitHeadRight','sitHeadTop','sitTailLeft','sitTailRight',
+                                                      'sitTailTop','sitTailBottom','sitStone','sitFruit','sitHBody','sirVBody');
+
+type
+  TForm1 = class(TForm)
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    StyleBook1: TStyleBook;
+    procedure FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar;
+      Shift: TShiftState);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure MenuItem4Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormActivate(Sender: TObject);//приводит RecArray в соответствие с содержимым MаpArray
+
+  private
+    FirstActivate:boolean;
+    procedure RecreateMap;
+    procedure BodyGrowing;
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure UpdateGrid;
+  end;
+
+var
+  myPosArray:array of TPoint;
+  Form1: TForm1;
+  MapArray:array[0..cColSize-1,0..cRowSize-1] of TSnakeItemType;
+  RecArray:array[0..cColSize-1,0..cRowSize-1] of TButton;
+
+implementation
+
+{$R *.fmx}
+
+uses uDebug;
+
+
+procedure TForm1.FormActivate(Sender: TObject);
+begin
+  if FirstActivate then
+   begin
+     FirstActivate:=False;
+     RecreateMap();
+   end;
+end;
+
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  if MessageDlg('Завершить работу?', TMsgDlgType.mtConfirmation,
+    [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0)<>mrYes then
+       CanClose:=False;
+
+end;
+
+
+procedure TForm1.RecreateMap();
+var
+  Col: Integer;
+  Row: Integer;
+  acol:TColumn;
+begin
+  //Карта - пока все пусто
+  DebugForm.Grid1.RowCount:=0;
+  DebugForm.Grid1.ClearColumns();
+  for Col := 0 to cColSize-1 do
+  begin
+    acol:=TColumn.Create(DebugForm.Grid1);
+    acol.Width:=25;
+    acol.Header:=IntToStr(Col+1);
+    DebugForm.Grid1.AddObject(acol);
+    for Row := 0 to cRowSize-1 do
+    begin
+       MapArray[Col,Row]:=sitNone;
+       if Assigned(RecArray[Col,Row]) then
+         FreeAndNil(RecArray[Col,Row]);
+       RecArray[Col,Row]:=TButton.Create(self);
+       RecArray[Col,Row].Width:=cRecWidth;
+       RecArray[Col,Row].Enabled:=False;
+       RecArray[Col,Row].Height:=cRecHeight;
+       RecArray[Col,Row].Position.X:=Col*cRecWidth;
+       RecArray[Col,Row].Position.Y:=Row*cRecHeight;
+       RecArray[Col,Row].Parent:=self;
+       RecArray[Col,Row].Visible:=False;
+    end;
+  end;
+  for Col := 1 to 5 do
+  begin
+    //Распределяем фрукты
+    MapArray[Random(cColSize-1),Random(cRowSize-1)]:=sitFruit;
+    //Распределяем камни
+    MapArray[Random(cColSize-1),Random(cRowSize-1)]:=sitStone;
+  end;
+  DebugForm.Grid1.RowCount:=cRowSize;
+  //Змейка
+  MapArray[0,0]:=sitHeadBottom;
+  SetLength(myPosArray,1);//координата под голову
+  UpdateGrid;
+end;
+
+//приводит RecArray в соответствие с содержимым MаpArray
+procedure TForm1.UpdateGrid;
+var
+  Col: Integer;
+  Row: Integer;
+begin
+  //Карта - пока все пусто
+  for Col := 0 to cColSize-1 do
+    for Row := 0 to cRowSize-1 do
+    begin
+      //Пока простейший вариант - отображаем голову
+      RecArray[col,row].Visible:= not (MapArray[col,row] = sitNone);
+      RecArray[col,row].StyleLookup:=cSnakeItemTypeName[MapArray[col,row]];
+    end;
+ if Assigned(DebugForm) then
+    DebugForm.UpdateGrid;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  FirstActivate:=True;
+end;
+
+procedure TForm1.BodyGrowing;
+begin
+
+end;
+
+procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: WideChar; Shift: TShiftState);
+begin
+  case Key of
+  cKEY_Up:
+  begin
+       //если нет препятсвия  перед нами
+       if (MyPosArray[0].Y <> 0) and (MapArray[MyPosArray[0].X,MyPosArray[0].Y-1] in [sitNone,sitFruit])  then
+         begin
+          //Делаем операцию с хвостом
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitNone;//Мы ушли из этой ячейки
+          MyPosArray[0].Y:=MyPosArray[0].Y-1;//Перемещаемся
+          if MapArray[MyPosArray[0].X,MyPosArray[0].Y] = sitFruit then
+          begin
+            //Скушали фрукт - растем
+            BodyGrowing();
+          end;
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadTop;//Мы пришли сюда
+
+         end
+       else
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadTop;
+  end;
+
+  cKEY_Down:
+  begin
+    if MyPosArray[0].Y = (cRowSize-1) then
+      begin
+         // (ничего не делаем) - уперлись в низ
+         MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadBottom;
+      end
+      else
+      begin
+       //если нет препятсвия  под нами
+       if MapArray[MyPosArray[0].X,MyPosArray[0].Y+1] in [sitNone,sitFruit]  then
+         begin
+          //Делаем операцию с хвостом
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitNone;//Мы ушли из этой ячейки
+          MyPosArray[0].Y:=MyPosArray[0].Y+1;//Перемещаемся
+          if MapArray[MyPosArray[0].X,MyPosArray[0].Y] = sitFruit then
+          begin
+            //Скушали фрукт - растем
+            BodyGrowing();
+          end;
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadBottom;//Мы пришли сюда
+         end;
+      end;
+  end;
+
+  cKEY_Left:
+  begin
+    if MyPosArray[0].X = 0 then
+      begin
+         // (ничего не делаем) уперлись в левую границу
+         MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadLeft;
+      end
+      else
+      begin
+       //если нет препятсвия  cлева
+       if MapArray[MyPosArray[0].X-1,MyPosArray[0].Y] in [sitNone,sitFruit]  then
+         begin
+          //Делаем операцию с хвостом
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitNone;//Мы ушли из этой ячейки
+          MyPosArray[0].X:=MyPosArray[0].X-1;//Перемещаемся
+          if MapArray[MyPosArray[0].X,MyPosArray[0].Y] = sitFruit then
+          begin
+            //Скушали фрукт - растем
+            BodyGrowing();
+          end;
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadLeft;//Мы пришли сюда
+         end;
+      end;
+  end;
+
+  cKEY_Right:
+  begin
+    if MyPosArray[0].X = (cColSize-1) then
+      begin
+         // (ничего не делаем) - уперлись вправо
+         MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadRight;
+      end
+      else
+      begin
+       //если нет препятсвия  cправа
+       if MapArray[MyPosArray[0].X+1,MyPosArray[0].Y] in [sitNone,sitFruit]  then
+         begin
+          //Делаем операцию с хвостом
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitNone;//Мы ушли из этой ячейки
+          MyPosArray[0].X:=MyPosArray[0].X+1;//Перемещаемся
+          if MapArray[MyPosArray[0].X,MyPosArray[0].Y] = sitFruit then
+          begin
+            //Скушали фрукт - растем
+            BodyGrowing();
+          end;
+          MapArray[MyPosArray[0].X,MyPosArray[0].Y]:=sitHeadRight;//Мы пришли сюда
+         end;
+      end;
+    end;
+  end;
+//  Caption:=IntToStr(Key);
+  UpdateGrid;
+end;
+
+
+
+
+procedure TForm1.MenuItem4Click(Sender: TObject);
+begin
+  DebugForm.Show
+end;
+
+end.

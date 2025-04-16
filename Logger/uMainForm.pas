@@ -6,7 +6,8 @@ uses
   System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Memo.Types,
   FMX.Layouts, FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo,
-  uLoggerThread,uLogReaderThread, FMX.Edit, FMX.StdCtrls;
+  uLoggerThread,uLogReaderThread, FMX.Edit, FMX.StdCtrls, FMX.EditBox,
+  FMX.NumberBox;
 
 type
   TForm1 = class(TForm)
@@ -15,11 +16,13 @@ type
     Edit1: TEdit;
     Timer1: TTimer;
     cbAutoscroll: TCheckBox;
+    edtTopLine: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure cbAutoscrollChange(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure edtTopLineChange(Sender: TObject);
   private
     { Private declarations }
     Logger: TLoggerThread;
@@ -47,6 +50,11 @@ end;
 procedure TForm1.cbAutoscrollChange(Sender: TObject);
 begin
  LogReader.AutoScroll:=cbAutoscroll.IsChecked;
+end;
+
+procedure TForm1.edtTopLineChange(Sender: TObject);
+begin
+  LogReader.TopLine:=StrToIntDef(edtTopLine.Text,LogReader.TopLine);
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -89,16 +97,20 @@ begin
     begin
       with TLogReaderThread(Sender) do
       begin
+        MemoLog.BeginUpdate;
         MemoLog.Lines.Clear;
-        Lines := LogContent.Split([sLineBreak]);
-
-        if Length(Lines) > WindowLines then
+        Lines := LogContent.Split([#13]);
+        if  Length(Lines)<WindowLines then
           MemoLog.Lines.AddStrings(Lines)
         else
           MemoLog.Lines.AddStrings(Lines);
 
-        if AutoScroll then
-          MemoLog.SetFocus;
+       Caption:='Строк:'+IntToStr(MemoLog.Lines.Count);
+
+        MemoLog.EndUpdate;
+//
+//        if AutoScroll then
+//          MemoLog.SetFocus;
       end;
     end);
 end;

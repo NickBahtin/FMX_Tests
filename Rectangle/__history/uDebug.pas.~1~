@@ -1,0 +1,37 @@
+unit uDebug;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, System.Rtti,
+  FMX.Grid.Style, FMX.Grid, FMX.Controls.Presentation, FMX.ScrollBox;
+
+type
+  TForm2 = class(TForm)
+    Grid1: TGrid;
+    Column1: TColumn;
+    Column2: TColumn;
+    Column3: TColumn;
+    Column4: TColumn;
+    Column5: TColumn;
+    Column6: TColumn;
+    Column7: TColumn;
+    Column8: TColumn;
+    Column9: TColumn;
+    Column10: TColumn;
+    Column11: TColumn;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.fmx}
+
+end.

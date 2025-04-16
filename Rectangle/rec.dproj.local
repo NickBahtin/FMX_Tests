@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.495,D:\Borland\Work.FMX\Project1.dproj=D:\Borland\Work.FMX\Rectangle\rec.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.377,D:\Borland\Work.FMX\Unit1.fmx=D:\Borland\Work.FMX\Rectangle\uMain.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.377,D:\Borland\Work.FMX\Unit1.pas=D:\Borland\Work.FMX\Rectangle\uMain.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.372,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.220,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
-    <Transaction>2025.04.15 10:17:01.372,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
-    <Transaction>2025.04.15 10:31:19.377,D:\Borland\Work.FMX\Rectangle\uMain.pas=D:\Borland\Work.FMX\Unit1.pas</Transaction>
-    <Transaction>2025.04.15 10:31:19.377,D:\Borland\Work.FMX\Rectangle\uMain.fmx=D:\Borland\Work.FMX\Unit1.fmx</Transaction>
-    <Transaction>2025.04.15 10:31:29.495,D:\Borland\Work.FMX\Rectangle\rec.dproj=D:\Borland\Work.FMX\Project1.dproj</Transaction>
+    <Transaction>2025.04.15 15:08:28.317,=D:\Temp\123\Rectangle\Unit2.pas</Transaction>
+    <Transaction>2025.04.15 15:10:48.439,D:\Temp\123\Rectangle\uDebug.fmx=D:\Temp\123\Rectangle\Unit2.fmx</Transaction>
+    <Transaction>2025.04.15 15:10:48.439,D:\Temp\123\Rectangle\uDebug.pas=D:\Temp\123\Rectangle\Unit2.pas</Transaction>
   </Transactions>
 </BorlandProject>
