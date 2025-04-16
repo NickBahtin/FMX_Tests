@@ -3,7 +3,7 @@ unit uMainForm;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Memo.Types,
   FMX.Layouts, FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo,
   uLoggerThread,uLogReaderThread, FMX.Edit, FMX.StdCtrls;
@@ -13,13 +13,13 @@ type
     MemoLog: TMemo;
     Layout1: TLayout;
     Edit1: TEdit;
-    EditStartPos: TEdit;
-    EditLineCount: TEdit;
-    ButtonReadFromPosition: TButton;
     Timer1: TTimer;
+    cbAutoscroll: TCheckBox;
     procedure FormCreate(Sender: TObject);
-    procedure ButtonReadFromPositionClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure cbAutoscrollChange(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
     Logger: TLoggerThread;
@@ -34,7 +34,8 @@ var
 
 implementation
 
-uses System.IOUtils;
+uses System.IOUtils,
+     System.SysUtils;  // Добавьте эту строку
 {$R *.fmx}
 
 
@@ -43,19 +44,17 @@ begin
   GetDir(0, Result);
 end;
 
-procedure TForm1.ButtonReadFromPositionClick(Sender: TObject);
-var
-  StartPos: Int64;
-  LineCount: Integer;
+procedure TForm1.cbAutoscrollChange(Sender: TObject);
 begin
-  StartPos := StrToInt64(EditStartPos.Text);
-  LineCount := StrToInt(EditLineCount.Text);
-  if Assigned(LogReader) then
-  begin
-    LogReader.ReadLogFromPosition(StartPos, LineCount);
-    MemoLog.Lines.Text := LogReader.LogContent;
-  end;
+ LogReader.AutoScroll:=cbAutoscroll.IsChecked;
 end;
+
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  Timer1.Enabled:=False;
+  Sleep(1000);
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 var FilePath:string;
 begin
@@ -63,15 +62,43 @@ begin
   Logger := TLoggerThread.Create(FilePath);
   Logger.Start;
 
-  LogReader := TLogReaderThread.Create(FilePath, OnLogRead);
+  LogReader := TLogReaderThread.Create(FilePath, OnLogRead, MemoLog);
+  LogReader.WindowLines := 50;
+  LogReader.AutoScroll := True;
   LogReader.Start;
-
 end;
 
 
-procedure TForm1.OnLogRead(Sender: TObject);
+procedure TForm1.FormDestroy(Sender: TObject);
 begin
- MemoLog.Lines.Text := LogReader.LogContent;
+  Logger.Terminate;
+  LogReader.Terminate;
+  sleep(100);
+  Logger.Free;
+  LogReader.Free;
+end;
+
+procedure TForm1.OnLogRead(Sender: TObject);
+var
+  Lines: TStringDynArray;
+begin
+  TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      with TLogReaderThread(Sender) do
+      begin
+        MemoLog.Lines.Clear;
+        Lines := LogContent.Split([sLineBreak]);
+
+        if Length(Lines) > WindowLines then
+          MemoLog.Lines.AddStrings(Lines)
+        else
+          MemoLog.Lines.AddStrings(Lines);
+
+        if AutoScroll then
+          MemoLog.SetFocus;
+      end;
+    end);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
