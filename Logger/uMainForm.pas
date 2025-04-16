@@ -52,7 +52,6 @@ end;
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   Timer1.Enabled:=False;
-  Sleep(1000);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -72,9 +71,12 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Logger.Terminate;
-  LogReader.Terminate;
-  sleep(100);
+  Logger.Msg:='Завершение';
+  Logger.WaitFor;
   Logger.Free;
+
+  LogReader.Terminate;
+  LogReader.WaitFor;
   LogReader.Free;
 end;
 

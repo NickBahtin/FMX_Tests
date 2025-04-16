@@ -16,17 +16,17 @@ object Form1: TForm1
     DataDetectorTypes = []
     Align = Client
     Size.Width = 640.000000000000000000
-    Size.Height = 430.000000000000000000
+    Size.Height = 445.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     Viewport.Width = 636.000000000000000000
-    Viewport.Height = 426.000000000000000000
+    Viewport.Height = 441.000000000000000000
   end
   object Layout1: TLayout
     Align = Bottom
-    Position.Y = 430.000000000000000000
+    Position.Y = 445.000000000000000000
     Size.Width = 640.000000000000000000
-    Size.Height = 50.000000000000000000
+    Size.Height = 35.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     object Edit1: TEdit
@@ -42,9 +42,12 @@ object Form1: TForm1
     object cbAutoscroll: TCheckBox
       IsChecked = True
       Position.X = 8.000000000000000000
-      Position.Y = 23.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 321.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
       TabOrder = 1
-      Text = #1072#1074#1090#1086#1089#1082#1088#1086#1083#1083
+      Text = #1040#1074#1090#1086#1084#1072#1090#1080#1095#1077#1089#1082#1080#1081' '#1089#1082#1088#1086#1083#1083#1080#1085#1075
       OnChange = cbAutoscrollChange
     end
   end
