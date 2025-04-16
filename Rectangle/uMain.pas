@@ -50,6 +50,7 @@ begin
   end;
 //  Caption:=IntToStr(Key);
  Text1.text:=Format('X=%d Y=%d',[Round(Rec.Position.X / Rec.width),Round(Rec.Position.Y / Rec.Height)]);
+ Caption:=Text1.Text;
 end;
 
 end.

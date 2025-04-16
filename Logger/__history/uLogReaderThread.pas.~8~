@@ -1,0 +1,126 @@
+unit uLogReaderThread;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.Threading, System.IOUtils, System.SyncObjs;
+
+type
+  TLogReaderThread = class(TThread)
+  private
+    FFileName: string;
+    FOnLogRead: TNotifyEvent;
+    FLogContent: string;
+    FLastPosition: Int64;
+    FCriticalSection: TCriticalSection;
+    procedure CheckForUpdates;
+  protected
+    procedure Execute; override;
+  public
+    constructor Create(AFileName: string; AOnLogRead: TNotifyEvent);
+    destructor Destroy; override;
+    property OnLogRead: TNotifyEvent read FOnLogRead write FOnLogRead;
+    property LogContent: string read FLogContent;
+    procedure ReadLogFromPosition(AStartPos: Int64; ALineCount: Integer);
+  end;
+
+implementation
+
+constructor TLogReaderThread.Create(AFileName: string; AOnLogRead: TNotifyEvent);
+begin
+  inherited Create(False);
+  FFileName := AFileName;
+  FOnLogRead := AOnLogRead;
+  FLastPosition := 0;
+  FCriticalSection := TCriticalSection.Create;
+end;
+
+destructor TLogReaderThread.Destroy;
+begin
+  FCriticalSection.Free;
+  inherited;
+end;
+
+procedure TLogReaderThread.CheckForUpdates;
+var
+  FileStream: TFileStream;
+  NewContent: string;
+  Buffer: TBytes;
+  Size: Integer;
+begin
+  if not TFile.Exists(FFileName) then
+    Exit;
+
+  FileStream := TFileStream.Create(FFileName, fmOpenRead or fmShareDenyNone);
+  try
+    Size := FileStream.Size - FLastPosition;
+    if Size > 0 then
+    begin
+      SetLength(Buffer, Size);
+      FileStream.Position := FLastPosition;
+      FileStream.ReadBuffer(Buffer[0], Size);
+      NewContent := TEncoding.UTF8.GetString(Buffer);
+      FCriticalSection.Enter;
+      try
+        FLogContent := FLogContent + NewContent;
+        FLastPosition := FileStream.Size;
+      finally
+        FCriticalSection.Leave;
+      end;
+      if Assigned(FOnLogRead) then
+        Synchronize(procedure
+        begin
+          FOnLogRead(Self);
+        end);
+    end;
+  finally
+    FileStream.Free;
+  end;
+end;
+
+procedure TLogReaderThread.Execute;
+begin
+  while not Terminated do
+  begin
+    CheckForUpdates;
+    Sleep(1000); // Опрос каждую секунду
+  end;
+end;
+
+procedure TLogReaderThread.ReadLogFromPosition(AStartPos: Int64; ALineCount: Integer);
+var
+  FileStream: TFileStream;
+  Reader: TStringReader;
+  Line: string;
+  LineCount: Integer;
+begin
+  if not TFile.Exists(FFileName) then
+    Exit;
+
+  FileStream := TFileStream.Create(FFileName, fmOpenRead or fmShareDenyNone);
+  try
+    FileStream.Position := AStartPos;
+    Reader := TStringReader.Create(FFileName, TEncoding.ANSI);
+    try
+      FCriticalSection.Enter;
+      try
+        FLogContent := '';
+        LineCount := 0;
+        while (LineCount < ALineCount) and Reader.ReadLine(Line) do
+        begin
+          FLogContent := FLogContent + Line + sLineBreak;
+          Inc(LineCount);
+        end;
+      finally
+        FCriticalSection.Leave;
+      end;
+    finally
+      Reader.Free;
+    end;
+  finally
+    FileStream.Free;
+  end;
+end;
+
+end.
+

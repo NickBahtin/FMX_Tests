@@ -1,0 +1,57 @@
+unit uLoggerThread;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.Threading;
+
+type
+  TLoggerThread = class(TThread)
+  private
+    FFileName: string;
+    FMessage: string;
+    FMsg: string;
+    procedure SetMsg(const Value: string);
+  protected
+    procedure Execute; override;
+  public
+    constructor Create(AFileName: string; AMessage: string);
+    property Msg:string read FMessage write SetMsg;
+
+  end;
+implementation
+
+{ TLoggerThread }
+
+constructor TLoggerThread.Create(AFileName, AMessage: string);
+begin
+  inherited Create(True);
+  FFileName := AFileName;
+  FMessage := AMessage;
+end;
+
+procedure TLoggerThread.Execute;
+var
+  FileStream: TFileStream;
+begin
+  if FMessage<>'' then
+  begin
+    FileStream := TFileStream.Create(FFileName, fmOpenWrite or fmOpenReadWrite or fmExclusive or fmShareExclusive(*fmShareDenyNone*));
+    try
+      FileStream.Seek(0, soFromEnd);
+      FileStream.Write(FMessage[1], Length(FMessage));
+      FileStream.Write(#13#10, 2); // Добавляем перевод строки
+    finally
+      FMessage:='';
+      FileStream.Free;
+    end;
+  end;
+end;
+
+procedure TLoggerThread.SetMsg(const Value: string);
+begin
+  FMessage := Value;
+  Resume;
+end;
+
+end.
