@@ -2,8 +2,8 @@ object DebugForm: TDebugForm
   Left = 0
   Top = 0
   Caption = 'Form2'
-  ClientHeight = 316
-  ClientWidth = 296
+  ClientHeight = 452
+  ClientWidth = 500
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -12,18 +12,24 @@ object DebugForm: TDebugForm
     Align = Client
     CanFocus = True
     ClipChildren = True
-    Size.Width = 296.000000000000000000
-    Size.Height = 316.000000000000000000
+    Size.Width = 500.000000000000000000
+    Size.Height = 402.000000000000000000
     Size.PlatformDefault = False
+    TextSettings.HorzAlign = Center
     TabOrder = 0
     RowHeight = 25.000000000000000000
     RowCount = 11
+    Options = [Editing, ColLines, RowLines, Tabs, Header, HeaderClick, AutoDisplacement]
+    OnDrawColumnHeader = Grid1DrawColumnHeader
+    OnDrawColumnBackground = Grid1DrawColumnBackground
+    OnDrawColumnCell = Grid1DrawColumnCell
     OnGetValue = Grid1GetValue
     OnSetValue = Grid1SetValue
-    Viewport.Width = 296.000000000000000000
-    Viewport.Height = 316.000000000000000000
+    Viewport.Width = 496.000000000000000000
+    Viewport.Height = 377.000000000000000000
     object Column1: TColumn
       HeaderSettings.TextSettings.WordWrap = False
+      HeaderSettings.TextSettings.HorzAlign = Center
       Size.Width = 25.000000000000000000
     end
     object Column2: TColumn
@@ -65,6 +71,34 @@ object DebugForm: TDebugForm
     object Column11: TColumn
       HeaderSettings.TextSettings.WordWrap = False
       Size.Width = 25.000000000000000000
+    end
+  end
+  object Layout1: TLayout
+    Align = Bottom
+    Position.Y = 402.000000000000000000
+    Size.Width = 500.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object Label1: TLabel
+      Position.X = 16.000000000000000000
+      Position.Y = 16.000000000000000000
+      Text = #1058#1080#1087' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1080
+      TabOrder = 0
+    end
+    object ComboBox1: TComboBox
+      Items.Strings = (
+        #1057#1086#1089#1090#1086#1103#1085#1080#1077' '#1103#1095#1077#1081#1082#1080
+        #1053#1072#1087#1088#1072#1074#1083#1077#1085#1080#1077' '#1079#1084#1077#1081#1082#1080
+        #1057#1086#1090#1086#1103#1085#1080#1077' '#1079#1084#1077#1081#1082#1080)
+      ItemIndex = 0
+      Position.X = 132.000000000000000000
+      Position.Y = 14.000000000000000000
+      Size.Width = 229.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      OnChange = ComboBox1Change
     end
   end
 end

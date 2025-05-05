@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.393,D:\Borland\Work.FMX\Logger\Unit1.pas=D:\Borland\Work.FMX\Logger\uLoggerThread.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.068,=D:\Borland\Work.FMX\Logger\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.515,D:\Borland\Work.FMX\Logger\Unit1.pas=D:\Borland\Work.FMX\Logger\uLogReaderThread.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.036,D:\Borland\Work.FMX\Unit1.fmx=D:\Borland\Work.FMX\Logger\uMainForm.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.036,D:\Borland\Work.FMX\Logger\uMainForm.pas=D:\Borland\Work.FMX\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.515,D:\Borland\Work.FMX\Logger\uLogReaderThread.pas=D:\Borland\Work.FMX\Logger\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.393,D:\Borland\Work.FMX\Logger\uLoggerThread.pas=D:\Borland\Work.FMX\Logger\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.294,D:\Borland\Work.FMX\Logger\TestLogger.dproj=D:\Borland\Work.FMX\Project1.dproj</Transaction>
     <Transaction>1899.12.30 00:00:00.000.683,=D:\Borland\Work.FMX\Logger\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.220,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.138,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.036,D:\Borland\Work.FMX\Unit1.pas=D:\Borland\Work.FMX\Logger\uMainForm.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.294,D:\Borland\Work.FMX\Project1.dproj=D:\Borland\Work.FMX\Logger\TestLogger.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.036,D:\Borland\Work.FMX\Logger\uMainForm.fmx=D:\Borland\Work.FMX\Unit1.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.068,=D:\Borland\Work.FMX\Logger\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

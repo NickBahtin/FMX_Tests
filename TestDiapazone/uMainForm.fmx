@@ -1,0 +1,36 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = #1055#1088#1086#1074#1077#1088#1082#1072' '#1092#1091#1085#1082#1094#1080#1080' IsValueInRange'
+  ClientHeight = 110
+  ClientWidth = 284
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 0
+    Text = '1..5,9..12,32'
+    Position.X = 48.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 189.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object NumberBox1: TNumberBox
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 1
+    Cursor = crIBeam
+    Position.X = 48.000000000000000000
+    Position.Y = 56.000000000000000000
+  end
+  object Button1: TButton
+    Position.X = 157.000000000000000000
+    Position.Y = 57.000000000000000000
+    TabOrder = 2
+    Text = #1055#1088#1086#1074#1077#1088#1080#1090#1100
+    TextSettings.Trimming = None
+    OnClick = Button1Click
+  end
+end
