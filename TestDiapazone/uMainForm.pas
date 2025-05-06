@@ -12,7 +12,10 @@ type
     Edit1: TEdit;
     NumberBox1: TNumberBox;
     Button1: TButton;
+    NumberBox2: TNumberBox;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,6 +36,16 @@ begin
       ShowMessage('Значение '+NumberBox1.Text+' есть в диапазоне:'+#130#10+Edit1.Text)
    else
       ShowMessage('Значение '+NumberBox1.Text+' отсутствует в диапазоне:'+#130#10+Edit1.Text);
+end;
+
+procedure TMainForm.Button2Click(Sender: TObject);
+var i:integer;
+begin
+   i:=GetElementByIndex(Edit1.Text,Round(NumberBox2.Value)-1);
+   if i>0 then
+      ShowMessage('Номер элемента '+NumberBox2.Text+' в диапазоне:'+#130#10+Edit1.Text+' является '+IntToStr(i))
+   else
+      ShowMessage('Номер элемента '+NumberBox2.Text+' отсутствует в диапазоне:'+#130#10+Edit1.Text);
 end;
 
 end.

@@ -3,6 +3,7 @@ unit FmxHelper;
 interface
 uses  System.SysUtils,
       FMX.Platform,
+      System.Generics.Collections,
       System.StrUtils, System.Types,
       FMX.Controls,
       FMX.Types,
@@ -112,6 +113,7 @@ procedure _MessageBox(AHandle:longint;AMessage:string;ADopMessage:string;AICON:I
 function StrToMask(AString:String):longword;
 function MaskToStr(AMask:longword):String;
 function IsValueInRange(const RangeStr: string; Value: Integer): Boolean;
+function GetElementByIndex(const RangeStr: string; Index: Integer): Integer;
 
 implementation
 
@@ -1444,6 +1446,59 @@ begin
   end;
 end;
 
+function GetElementByIndex(const RangeStr: string; Index: Integer): Integer;
+var
+  Ranges: TArray<string>;
+  Range: string;
+  Parts: TArray<string>;
+  StartRange, EndRange: Integer;
+  Elements: TList<Integer>;
+  i, j: Integer;
+begin
+  Result := 0;
+  Elements := TList<Integer>.Create;
+
+  try
+    // Разбиваем строку на части, разделённые запятыми
+    Ranges := SplitString(RangeStr, ',');
+
+    for i := 0 to High(Ranges) do
+    begin
+      Range := Trim(Ranges[i]);
+
+      // Проверяем, содержит ли часть диапазон
+      if Pos('..', Range) > 0 then
+      begin
+        // Разбиваем диапазон на начальное и конечное значения
+        Parts := SplitString(Range, '..');
+        if Length(Parts) = 3 then
+        begin
+          StartRange := StrToIntDef(Trim(Parts[0]), 0);
+          EndRange := StrToIntDef(Trim(Parts[2]), 0);
+
+          // Добавляем все элементы диапазона в список
+          for j := StartRange to EndRange do
+          begin
+            Elements.Add(j);
+          end;
+        end;
+      end
+      else
+      begin
+        // Добавляем отдельное значение в список
+        Elements.Add(StrToIntDef(Range, 0));
+      end;
+    end;
+
+    // Проверяем, существует ли элемент с заданным индексом
+    if (Index >= 0) and (Index < Elements.Count) then
+    begin
+      Result := Elements[Index];
+    end;
+  finally
+    Elements.Free;
+  end;
+end;
 
 end.
 
