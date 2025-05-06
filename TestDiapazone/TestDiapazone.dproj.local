@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.938,D:\Borland\Work.FMX\Unit1.fmx=D:\Borland\Work.FMX\TestDiapasone\uMainForm.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.474,D:\Borland\Work.FMX\Project1.dproj=D:\Borland\Work.FMX\TestDiapasone\TestDiapazone.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.938,D:\Borland\Work.FMX\Unit1.pas=D:\Borland\Work.FMX\TestDiapasone\uMainForm.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.238,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.220,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
-    <Transaction>2025.05.05 15:13:58.238,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
-    <Transaction>2025.05.05 15:18:40.938,D:\Borland\Work.FMX\TestDiapasone\uMainForm.fmx=D:\Borland\Work.FMX\Unit1.fmx</Transaction>
-    <Transaction>2025.05.05 15:18:40.938,D:\Borland\Work.FMX\TestDiapasone\uMainForm.pas=D:\Borland\Work.FMX\Unit1.pas</Transaction>
-    <Transaction>2025.05.05 15:18:59.474,D:\Borland\Work.FMX\TestDiapasone\TestDiapazone.dproj=D:\Borland\Work.FMX\Project1.dproj</Transaction>
   </Transactions>
 </BorlandProject>
