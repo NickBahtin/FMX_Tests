@@ -1,0 +1,110 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Grid1: TGrid
+    CanFocus = True
+    ClipChildren = True
+    Position.X = 48.000000000000000000
+    Position.Y = 112.000000000000000000
+    Size.Width = 392.000000000000000000
+    Size.Height = 161.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 372.000000000000000000
+    Viewport.Height = 136.000000000000000000
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 4
+    Position.X = 304.000000000000000000
+    Position.Y = 8.000000000000000000
+  end
+  object FloatEdit1: TFloatEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    StyleLookup = 'floateditstyle'
+    TabOrder = 5
+    Text = '0,000000 '
+    Position.X = 304.000000000000000000
+    Position.Y = 48.000000000000000000
+    ValueType = vtFloat
+    Delta = 0.100000001490116100
+    DecimalDigits = 6
+  end
+  object memTable: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 488
+    Top = 48
+    object memTableID: TIntegerField
+      FieldName = 'ID'
+    end
+    object memTableName: TStringField
+      FieldName = 'Name'
+    end
+    object memTableValue: TFloatField
+      Alignment = taCenter
+      FieldName = 'Value'
+      DisplayFormat = '0.0000#####'
+      EditFormat = '0.00000##'
+    end
+    object memTableOperation: TSmallintField
+      FieldName = 'Operation'
+    end
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = memTable
+    ScopeMappings = <>
+    Left = 536
+    Top = 184
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 20
+    Top = 5
+    object LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      GridControl = Grid1
+      Columns = <>
+    end
+    object LinkControlToField1: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Name'
+      Control = Edit1
+      Track = False
+    end
+    object LinkControlToField2: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB2
+      FieldName = 'Value'
+      Control = FloatEdit1
+      Track = False
+    end
+  end
+  object DataSource1: TDataSource
+    DataSet = memTable
+    Left = 496
+    Top = 136
+  end
+  object BindSourceDB2: TBindSourceDB
+    DataSource = DataSource1
+    ScopeMappings = <>
+    Left = 120
+    Top = 32
+  end
+end
