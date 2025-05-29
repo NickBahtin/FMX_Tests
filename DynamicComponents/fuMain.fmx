@@ -1,0 +1,57 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 550
+  ClientWidth = 542
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object lytButtons: TLayout
+    Align = Left
+    Position.Y = 22.000000000000000000
+    Size.Width = 97.000000000000000000
+    Size.Height = 506.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Layout1: TLayout
+      Align = Top
+      Padding.Left = 5.000000000000000000
+      Padding.Top = 5.000000000000000000
+      Padding.Right = 5.000000000000000000
+      Padding.Bottom = 5.000000000000000000
+      Size.Width = 97.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object Rectangle1: TRectangle
+        Align = Client
+        Size.Width = 87.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+      end
+    end
+  end
+  object Button1: TButton
+    Align = Top
+    Size.Width = 542.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = #1057#1086#1079#1076#1072#1090#1100' 100 '#1082#1085#1086#1087#1086#1082' '#1080' 100 '#1095#1077#1082#1073#1086#1082#1089#1086#1074
+    TextSettings.Trimming = None
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Align = Bottom
+    Position.Y = 528.000000000000000000
+    Size.Width = 542.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = #1059#1076#1072#1083#1080#1090#1100' '#1074#1089#1077
+    TextSettings.Trimming = None
+    OnClick = Button2Click
+  end
+end

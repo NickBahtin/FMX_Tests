@@ -1,0 +1,75 @@
+unit fuMain;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects;
+
+type
+  TForm1 = class(TForm)
+    lytButtons: TLayout;
+    Button1: TButton;
+    Button2: TButton;
+    Layout1: TLayout;
+    Rectangle1: TRectangle;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.fmx}
+
+procedure TForm1.Button1Click(Sender: TObject);
+var i:integer;
+    tmpButton:TButton;
+    tmpCheckBox:TCheckBox;
+begin
+  for i := 1 to 100 do
+  begin
+
+    tmpButton:=TButton.Create(lytButtons);
+    tmpButton.Text:=IntToStr(lytButtons.ComponentCount+1);
+    tmpButton.Align:=TAlignLayout.Top;
+    tmpButton.Parent:=lytButtons;
+    tmpButton.Margins.Top:=5;
+    tmpButton.Margins.Left:=5;
+    tmpButton.Margins.Right:=5;
+
+    tmpCheckBox:=TCheckBox.Create(lytButtons);
+    tmpCheckBox.Text:=IntToStr(lytButtons.ComponentCount+1);
+    tmpCheckBox.Align:=TAlignLayout.Top;
+    tmpCheckBox.Parent:=lytButtons;
+    tmpCheckBox.Margins.Top:=5;
+    tmpCheckBox.Margins.Left:=5;
+    tmpCheckBox.Margins.Right:=5;
+  end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var i,cnt:integer;
+    tmpButton:TButton;
+
+begin
+  cnt:=lytButtons.ComponentCount;
+  for i := cnt-1 downto 0 do
+  begin
+    if lytButtons.Components[i] is TButton then
+       TButton(lytButtons.Components[i]).Free
+    else
+       if lytButtons.Components[i] is TCheckBox then
+         TCheckBox(lytButtons.Components[i]).Free
+   end;
+
+end;
+
+end.
