@@ -1,0 +1,11 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = #1041#1072#1081#1079#1086#1074#1072#1103' '#1092#1086#1088#1084#1072
+  ClientHeight = 480
+  ClientWidth = 334
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+end
