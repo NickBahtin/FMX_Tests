@@ -1,0 +1,49 @@
+unit Unit1;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Memo.Types,
+  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.WebBrowser;
+
+type
+  TForm1 = class(TForm)
+    WebBrowser1: TWebBrowser;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+uses
+  System.IOUtils;
+{$R *.fmx}
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  HTMLFileName: string;
+  HTMLContent: string;
+begin
+  // Создаем HTML-контент с указанием кодировки UTF-8
+  HTMLContent := '<html><head><meta charset="UTF-8"></head><body>';
+  HTMLContent := HTMLContent + '<p><font color="red">Красный текст</font> и <font color="blue">синий текст</font></p>';
+  HTMLContent := HTMLContent + '<p><b>Жирный текст</b> и <i>курсивный текст</i></p>';
+  HTMLContent := HTMLContent + '<p><font size="20">Текст большого размера</font></p>';
+  HTMLContent := HTMLContent + '</body></html>';
+
+  // Создаем временный файл
+  HTMLFileName := TPath.Combine(TPath.GetTempPath, 'temp.html');
+  TFile.WriteAllText(HTMLFileName, HTMLContent, TEncoding.UTF8);
+
+  // Загружаем HTML-файл в TWebBrowser
+  WebBrowser1.Navigate(HTMLFileName);
+end;
+
+
+end.
