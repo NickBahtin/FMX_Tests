@@ -1,1 +1,5 @@
-Garbage/
+Garbage
+__history
+__recovery 
+*.dcu
+*.so
