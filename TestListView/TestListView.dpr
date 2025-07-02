@@ -3,7 +3,8 @@ program TestListView;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  fuMain in 'fuMain.pas' {Form1};
+  fuMain in 'fuMain.pas' {Form1},
+  lvHelper in 'lvHelper.pas';
 
 {$R *.res}
 

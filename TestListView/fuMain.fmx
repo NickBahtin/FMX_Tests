@@ -2,41 +2,13 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 480
+  ClientHeight = 561
   ClientWidth = 640
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
-  object lvResults: TListView
-    ItemAppearanceClassName = 'TListItemAppearance'
-    ItemEditAppearanceClassName = 'TListItemShowCheckAppearance'
-    HeaderAppearanceClassName = 'TListHeaderObjects'
-    FooterAppearanceClassName = 'TListHeaderObjects'
-    Align = Client
-    Margins.Left = 5.000000000000000000
-    Margins.Top = 5.000000000000000000
-    Margins.Right = 5.000000000000000000
-    Margins.Bottom = 5.000000000000000000
-    Size.Width = 630.000000000000000000
-    Size.Height = 419.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 0
-    object ShadowEffect1: TShadowEffect
-      Distance = 3.000000000000000000
-      Direction = 45.000000000000000000
-      Softness = 0.300000011920929000
-      Opacity = 0.600000023841857900
-      ShadowColor = claBlack
-    end
-    object ShadowEffect4: TShadowEffect
-      Distance = 3.000000000000000000
-      Direction = 45.000000000000000000
-      Softness = 0.300000011920929000
-      Opacity = 0.600000023841857900
-      ShadowColor = claBlack
-    end
-  end
   object Layout1: TLayout
     Align = Bottom
     Padding.Left = 5.000000000000000000
@@ -48,11 +20,11 @@ object Form1: TForm1
     Margins.Right = 5.000000000000000000
     Margins.Bottom = 5.000000000000000000
     Position.X = 5.000000000000000000
-    Position.Y = 434.000000000000000000
+    Position.Y = 515.000000000000000000
     Size.Width = 630.000000000000000000
     Size.Height = 41.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 1
+    TabOrder = 0
     object btnAddString: TCornerButton
       Align = MostRight
       Margins.Right = 5.000000000000000000
@@ -97,6 +69,33 @@ object Form1: TForm1
         Opacity = 0.600000023841857900
         ShadowColor = claBlack
       end
+    end
+    object ShadowEffect4: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+  end
+  object lvresult: TListView
+    ItemAppearanceClassName = 'TListItemAppearance'
+    ItemEditAppearanceClassName = 'TListItemShowCheckAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Align = Client
+    Size.Width = 640.000000000000000000
+    Size.Height = 510.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object ScrollBox1: TScrollBox
+      Align = Client
+      Size.Width = 640.000000000000000000
+      Size.Height = 510.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Viewport.Width = 640.000000000000000000
+      Viewport.Height = 510.000000000000000000
     end
   end
 end
