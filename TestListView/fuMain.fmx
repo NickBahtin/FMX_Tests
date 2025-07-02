@@ -34,7 +34,7 @@ object Form1: TForm1
       Size.Width = 172.000000000000000000
       Size.Height = 31.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 1
+      TabOrder = 2
       Text = #1044#1086#1073#1072#1074#1080#1090#1100' '#1089#1090#1088#1086#1082#1091
       TextSettings.Trimming = None
       XRadius = 3.000000000000000000
@@ -77,6 +77,29 @@ object Form1: TForm1
       Opacity = 0.600000023841857900
       ShadowColor = claBlack
     end
+    object btnClear: TCornerButton
+      Align = MostRight
+      Margins.Right = 5.000000000000000000
+      Position.X = 94.000000000000000000
+      Position.Y = 5.000000000000000000
+      Sides = [Top, Left, Bottom, Right]
+      Size.Width = 172.000000000000000000
+      Size.Height = 31.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = #1059#1076#1072#1083#1080#1090#1100' '#1074#1089#1077' '#1086#1073#1098#1077#1082#1090#1099
+      TextSettings.Trimming = None
+      XRadius = 3.000000000000000000
+      YRadius = 3.000000000000000000
+      OnClick = btnClearClick
+      object ShadowEffect1: TShadowEffect
+        Distance = 3.000000000000000000
+        Direction = 45.000000000000000000
+        Softness = 0.300000011920929000
+        Opacity = 0.600000023841857900
+        ShadowColor = claBlack
+      end
+    end
   end
   object lvresult: TListView
     ItemAppearanceClassName = 'TListItemAppearance'
@@ -90,12 +113,30 @@ object Form1: TForm1
     TabOrder = 2
     object ScrollBox1: TScrollBox
       Align = Client
-      Size.Width = 640.000000000000000000
-      Size.Height = 510.000000000000000000
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Size.Width = 630.000000000000000000
+      Size.Height = 500.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
-      Viewport.Width = 640.000000000000000000
-      Viewport.Height = 510.000000000000000000
+      Viewport.Width = 630.000000000000000000
+      Viewport.Height = 500.000000000000000000
+      object Layout2: TLayout
+        Align = Top
+        Size.Width = 630.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object ShadowEffect5: TShadowEffect
+          Distance = 3.000000000000000000
+          Direction = 45.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+      end
     end
   end
 end

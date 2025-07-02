@@ -22,9 +22,14 @@ type
     ShadowEffect4: TShadowEffect;
     lvresult: TListView;
     ScrollBox1: TScrollBox;
+    btnClear: TCornerButton;
+    ShadowEffect1: TShadowEffect;
+    ShadowEffect5: TShadowEffect;
+    Layout2: TLayout;
     procedure btnAddTableClick(Sender: TObject);
     procedure btnAddStringClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnClearClick(Sender: TObject);
   private
     { Private declarations }
     mycol:TInitGridRecord;
@@ -42,36 +47,20 @@ implementation
 
 
 procedure TForm1.btnAddStringClick(Sender: TObject);
-//  AddTextToListView(lvResult,btnAddString.Tag,'Результат: '+IntToStr(btnAddString.Tag)+' Компонентов:'+IntToStr(lvResult.ComponentCount+1));
-//  btnAddString.Tag:=btnAddString.Tag+1;
-var
-  i: Integer;
-  Grid: TGrid;
-  Lab: TText;
 begin
-  // Предполагается, что ScrollBox уже добавлен на форму и его имя ScrollBox1
-  for i := 0 to 4 do // Создадим 5 гридов для примера
-  begin
-    Grid := TGrid.Create(ScrollBox1);
-    Grid.Parent := ScrollBox1;
-    Grid.Align := TAlignLayout.Top;
-    Grid.Height := 100; // Установите нужную высоту для каждого грида
-    Grid.Margins.Top := 5; // Отступ сверху для каждого грида
-
-    Lab := TText.Create(ScrollBox1);
-    Lab.Parent := ScrollBox1;
-    Lab.Align := TAlignLayout.Top;
-    Lab.Margins.Top := 1; // Отступ сверху для каждого грида
-    Lab.Text:='Таблица '+IntToStr(i+1);
-    Lab.TextSettings.Font.Style:=[ TFontStyle.fsBold];
-    Lab.TextSettings.HorzAlign:=TTextAlign.Leading;
-  end;
+  AddTextToScrollBox(Layout2,btnAddString.Tag,'Результат: '+IntToStr(btnAddString.Tag)+' Компонентов:'+IntToStr(lvResult.ComponentCount+1));
+  btnAddString.Tag:=btnAddString.Tag+1;
 end;
 
 procedure TForm1.btnAddTableClick(Sender: TObject);
 begin
-  AddTableToListView(ScrollBox1,mycol);
+  AddTableToScrollBox(Layout2,mycol);
   btnAddTable.Tag:=btnAddTable.Tag+1;
+end;
+
+procedure TForm1.btnClearClick(Sender: TObject);
+begin
+  ClearTextAndGridsFromScrollBox(Layout2);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
