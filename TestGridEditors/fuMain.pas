@@ -6,10 +6,10 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, System.Rtti,
   FMX.Grid.Style, FMX.Grid, FMX.Controls.Presentation, FMX.ScrollBox,
-  FMX.EditBox, FMX.NumberBox, FMX.Edit, FMX.ListBox;
+  FMX.EditBox, FMX.NumberBox, FMX.Edit, FMX.ListBox, FmxFloatEdit;
 
 type
-  TParameterType = (ptComboBox, ptNumber, ptText);
+  TParameterType = (ptComboBox, ptNumber, ptSingle, ptText);
 
   TParameter = record
     Name: string;
@@ -31,7 +31,6 @@ type
     procedure Grid1CreateCustomEditor(Sender: TObject; const Column: TColumn;
       var Control: TStyledControl);
     procedure Grid1EditingDone(Sender: TObject; const ACol, ARow: Integer);
-     procedure ClearEditor;
     procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
@@ -50,47 +49,12 @@ implementation
 {$R *.fmx}
 uses FMX.Pickers;
 
-//procedure TMainForm.ComboBox1Change(Sender: TObject);
-//var
-//  Combo: TComboBox;
-//begin
-//  Combo := Sender as TComboBox;
-//  Grid1.BeginUpdate;
-//  try
-//    FParameters[Combo.Tag].Value := Combo.ItemIndex;
-//  finally
-//    Grid1.EndUpdate;
-//  end;  Combo.Parent := nil; // Удаляем редактор
-//  Combo.Free;
-//end;
 
-
-//procedure TMainForm.Edit1Change(Sender: TObject);
-//var
-//  Edit: TEdit;
-//  Row: Integer;
-//begin
-//  Edit := Sender as TEdit;
-//  Row := Edit.Tag;
-//  FParameters[Row].Value := Edit.Text;
-//  Grid1.RowCount := Grid1.RowCount; // Обновление грида
-//end;
-
-procedure TMainForm.ClearEditor;
-begin
-  Exit;
-  if FActiveEditor <> nil then
-  begin
-    FActiveEditor.Parent := nil;
-    FreeAndNil(FActiveEditor);
-  end;
-  FEditorRow := -1;
-end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
 // Инициализация параметров
-  SetLength(FParameters, 3);
+  SetLength(FParameters, 4);
 
   // Параметр с ComboBox
   FParameters[0].Name := 'Тип устройства';
@@ -107,6 +71,10 @@ begin
   FParameters[2].Name := 'Описание';
   FParameters[2].ParamType := ptText;
   FParameters[2].Value := '';
+
+  FParameters[3].Name := 'Точность';
+  FParameters[3].ParamType := ptSingle;
+  FParameters[3].Value := 0.5; // Значение по умолчанию
 
   // Обновляем Grid
   Grid1.RowCount := Length(FParameters);
@@ -165,6 +133,19 @@ begin
           FEditorRow := Row;
         end;
 
+      ptSingle:
+        begin
+          var FloatEdit := TFmxFloatEdit.Create(nil);
+          FloatEdit.Parent := Grid1;
+          FloatEdit.Position.Point := CellRect.TopLeft;
+          FloatEdit.Width := CellRect.Width;
+          FloatEdit.Value := FParameters[Row].Value.AsExtended;
+          FloatEdit.StyledSettings := FloatEdit.StyledSettings - [TStyledSetting.Size];
+          Control := FloatEdit;
+          FActiveEditor := FloatEdit;
+          FEditorRow := Row;
+        end;
+
       ptText:
         begin
           var Edit := TEdit.Create(nil);
@@ -206,6 +187,10 @@ if (ACol = 1) and (ARow >= 0) and (ARow < Length(FParameters)) and (FActiveEdito
         if FActiveEditor is TNumberBox then
           FParameters[ARow].Value := Round(TNumberBox(FActiveEditor).Value);
 
+      ptSingle:
+        if FActiveEditor is TFmxFloatEdit then
+          FParameters[ARow].Value := TFmxFloatEdit(FActiveEditor).Value;
+
       ptText:
         if FActiveEditor is TEdit then
           FParameters[ARow].Value := TEdit(FActiveEditor).Text;
@@ -240,6 +225,7 @@ begin
             if (FParameters[Row].Value.AsInteger >= 0) and (FParameters[Row].Value.AsInteger < Length(FParameters[Row].Items)) then
               Value := FParameters[Row].Items[FParameters[Row].Value.AsInteger];
           ptNumber:Value := FParameters[Row].Value.AsInteger;
+          ptSingle: Value := FParameters[Row].Value.AsExtended;
           ptText: Value := FParameters[Row].Value.AsString;
         end;
     end;
@@ -273,6 +259,13 @@ begin
       ptNumber:
         if Value.IsType<integer> then
           FParameters[Row].Value := Value.AsInteger;
+      ptSingle:
+          // Безопасное получение Single значения
+        if Value.IsType<Double> or
+           Value.IsType<Single> or
+           Value.IsType<Extended>
+          then
+            FParameters[Row].Value := Value.AsExtended;
       ptText:
         if Value.IsType<string> then
           FParameters[Row].Value := Value.ToString;
@@ -280,16 +273,5 @@ begin
   end;
 end;
 
-//procedure TMainForm.NumberBox1Change(Sender: TObject);
-//var
-//  NumBox: TNumberBox;
-//begin
-//  NumBox := Sender as TNumberBox;
-//  FParameters[NumBox.Tag].Value := Round(NumBox.Value);
-//  //Grid1.InvalidateCell(1, NumBox.Tag);
-//  NumBox.Parent := nil; // Удаляем редактор
-//  NumBox.Free;
-//end;
-//
 
 end.
