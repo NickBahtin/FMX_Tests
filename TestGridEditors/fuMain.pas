@@ -6,10 +6,11 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, System.Rtti,
   FMX.Grid.Style, FMX.Grid, FMX.Controls.Presentation, FMX.ScrollBox,
-  FMX.EditBox, FMX.NumberBox, FMX.Edit, FMX.ListBox, FmxFloatEdit;
+  FMX.EditBox, FMX.NumberBox, FMX.Edit, FMX.ListBox, FmxFloatEdit,
+  FMX.CurrencyEdit, uFloatEdit;
 
 type
-  TParameterType = (ptComboBox, ptNumber, ptSingle, ptText);
+  TParameterType = (ptComboBox, ptNumber,ptFloat, ptText);
 
   TParameter = record
     Name: string;
@@ -47,7 +48,7 @@ var
 implementation
 
 {$R *.fmx}
-uses FMX.Pickers;
+uses FMX.Pickers,Fmx.Text,FmxHelper;
 
 
 
@@ -73,7 +74,7 @@ begin
   FParameters[2].Value := '';
 
   FParameters[3].Name := 'Точность';
-  FParameters[3].ParamType := ptSingle;
+  FParameters[3].ParamType := ptFloat;
   FParameters[3].Value := 0.5; // Значение по умолчанию
 
   // Обновляем Grid
@@ -125,7 +126,9 @@ begin
           var NumBox := TNumberBox.Create(nil);
           NumBox.Parent := Grid1;
           NumBox.Position.Point := CellRect.TopLeft;
-          NumBox.Width := CellRect.Width;
+          NumBox.Max:=1E20;
+          NumBox.Min:=-1E20;
+           NumBox.Width := CellRect.Width;
           NumBox.Value := FParameters[Row].Value.AsInteger;
           NumBox.StyledSettings := NumBox.StyledSettings - [TStyledSetting.Size];
           Control := NumBox;
@@ -133,18 +136,26 @@ begin
           FEditorRow := Row;
         end;
 
-      ptSingle:
+      ptFloat:
         begin
-          var FloatEdit := TFmxFloatEdit.Create(nil);
-          FloatEdit.Parent := Grid1;
-          FloatEdit.Position.Point := CellRect.TopLeft;
-          FloatEdit.Width := CellRect.Width;
-          FloatEdit.Value := FParameters[Row].Value.AsExtended;
-          FloatEdit.StyledSettings := FloatEdit.StyledSettings - [TStyledSetting.Size];
-          Control := FloatEdit;
-          FActiveEditor := FloatEdit;
+          var NumBox := TNumberBox.Create(nil);
+          NumBox.Parent := Grid1;
+          NumBox.Position.Point := CellRect.TopLeft;
+          NumBox.ValueType := TNumValueType.Float;
+          NumBox.Max:=1E20;
+          NumBox.Min:=-1E20;
+          NumBox.DecimalDigits:=3;
+          NumBox.VertIncrement:=1;
+          NumBox.HorzIncrement:=0.1;
+          NumBox.Width := CellRect.Width;
+          NumBox.Value := FParameters[Row].Value.AsExtended;
+          NumBox.StyledSettings := NumBox.StyledSettings - [TStyledSetting.Size];
+          Control := NumBox;
+          FActiveEditor := NumBox;
           FEditorRow := Row;
         end;
+
+
 
       ptText:
         begin
@@ -187,9 +198,9 @@ if (ACol = 1) and (ARow >= 0) and (ARow < Length(FParameters)) and (FActiveEdito
         if FActiveEditor is TNumberBox then
           FParameters[ARow].Value := Round(TNumberBox(FActiveEditor).Value);
 
-      ptSingle:
-        if FActiveEditor is TFmxFloatEdit then
-          FParameters[ARow].Value := TFmxFloatEdit(FActiveEditor).Value;
+      ptFloat:
+        if FActiveEditor is TNumberBox then
+          FParameters[ARow].Value := TNumberBox(FActiveEditor).Value;
 
       ptText:
         if FActiveEditor is TEdit then
@@ -225,7 +236,7 @@ begin
             if (FParameters[Row].Value.AsInteger >= 0) and (FParameters[Row].Value.AsInteger < Length(FParameters[Row].Items)) then
               Value := FParameters[Row].Items[FParameters[Row].Value.AsInteger];
           ptNumber:Value := FParameters[Row].Value.AsInteger;
-          ptSingle: Value := FParameters[Row].Value.AsExtended;
+          ptFloat:Value := FParameters[Row].Value.AsExtended;
           ptText: Value := FParameters[Row].Value.AsString;
         end;
     end;
@@ -243,6 +254,7 @@ end;
 procedure TMainForm.Grid1SetValue(Sender: TObject; const ACol, ARow: Integer;
   const Value: TValue);
   var row,col:integer;
+      val:Single;
 begin
   row:=ARow;
   col:=ACol;
@@ -259,13 +271,9 @@ begin
       ptNumber:
         if Value.IsType<integer> then
           FParameters[Row].Value := Value.AsInteger;
-      ptSingle:
-          // Безопасное получение Single значения
-        if Value.IsType<Double> or
-           Value.IsType<Single> or
-           Value.IsType<Extended>
-          then
-            FParameters[Row].Value := Value.AsExtended;
+      ptFloat:
+        if Value.IsType<Single> or Value.IsType<Double> or Value.IsType<Extended> then
+          FParameters[Row].Value := Value.AsExtended;
       ptText:
         if Value.IsType<string> then
           FParameters[Row].Value := Value.ToString;

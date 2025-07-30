@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D030AC7F-493A-4CA6-BF31-FB148911815D}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TestGridEditors.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\VCL.D12\fmxfp\Components\FP\FMXFP.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TestGridEditors">
+        <MSBuild Projects="TestGridEditors.dproj"/>
+    </Target>
+    <Target Name="TestGridEditors:Clean">
+        <MSBuild Projects="TestGridEditors.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestGridEditors:Make">
+        <MSBuild Projects="TestGridEditors.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FMXFP">
+        <MSBuild Projects="..\..\VCL.D12\fmxfp\Components\FP\FMXFP.dproj"/>
+    </Target>
+    <Target Name="FMXFP:Clean">
+        <MSBuild Projects="..\..\VCL.D12\fmxfp\Components\FP\FMXFP.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FMXFP:Make">
+        <MSBuild Projects="..\..\VCL.D12\fmxfp\Components\FP\FMXFP.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TestGridEditors;FMXFP"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TestGridEditors:Clean;FMXFP:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TestGridEditors:Make;FMXFP:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

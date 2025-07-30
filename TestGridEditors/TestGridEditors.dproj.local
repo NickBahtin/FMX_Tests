@@ -3,7 +3,7 @@
 	<Transactions>
     <Transaction>1899.12.30 00:00:00.000.922,D:\Borland\Work.FMX\Unit1.fmx=D:\Borland\Work.FMX\TestGridEditors\fuMain.fmx</Transaction>
     <Transaction>1899.12.30 00:00:00.000.827,D:\Borland\Work.FMX\Project1.dproj=D:\Borland\Work.FMX\TestGridEditors\TestGridEditors.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.922,D:\Borland\Work.FMX\Unit1.pas=D:\Borland\Work.FMX\TestGridEditors\fuMain.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.203,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.922,D:\Borland\Work.FMX\Unit1.pas=D:\Borland\Work.FMX\TestGridEditors\fuMain.pas</Transaction>
   </Transactions>
 </BorlandProject>
