@@ -106,6 +106,7 @@ function CheckKM5BuffCRC(pBuff:PByte;Len:byte):boolean;
 function MySwap32(value : longword) : longword; assembler ;
 {$ENDIF}
 procedure CopyMemory(Destination: Pointer; Source: Pointer; Length: NativeUInt);
+procedure Zeromemory(Destination: Pointer; Length: NativeUInt);
 function inttoBCD(tmpB:byte):AnsiChar;
 function BCDtoInt(tmpB:byte):byte;
 function S2F(AStr: String):single;
@@ -157,6 +158,7 @@ function MaskToStr(AMask:longword):String;
 function IsValueInRange(const RangeStr: string; Value: Integer): Boolean;
 function GetElementByIndex(const RangeStr: string; Index: Integer): Integer;
 function TwosComplementToDecimal(hexValue: Word): Integer;
+procedure copymem(dest,src:PByte;len:integer);
 
 implementation
 
@@ -1103,17 +1105,14 @@ begin
 end;
 {$ENDIF}
 
+procedure OutputDebugMessage(const Msg: string);
+begin
 {$IFDEF LINUX}
-procedure OutputDebugMessage(const Msg: string);
-begin
   WriteLn(Msg); // Или используйте другой метод по вашему выбору
-end;
 {$ELSE}
-procedure OutputDebugMessage(const Msg: string);
-begin
   OutputDebugString(PChar(Msg));
-end;
 {$ENDIF}
+end;
 
 function CRC16(S:String;len:integer):word;
 var W:word;
@@ -1599,5 +1598,22 @@ procedure CopyMemory(Destination: Pointer; Source: Pointer; Length: NativeUInt);
 begin
   System.Move(Source,Destination,Length);
 end;
+procedure Zeromemory(Destination: Pointer; Length: NativeUInt);
+var i:integer;
+begin
+  for I := 0 to Length-1 do
+     PByte(Destination)[i]:=0;
+end;
+
+procedure copymem(dest,src:PByte;len:integer);
+var i:integer;
+begin
+  for I := 1 to len do
+  begin
+    //dest[i-1]:=src[i-1];
+    PByte(dest+(i-1))^:=PByte(src+(i-1))^;
+  end;
+end;
+
 end.
 
