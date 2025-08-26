@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2025.08.19 15:57:06.703,=D:\Borland\Work.FMX\Unit1.pas</Transaction>
+    <Transaction>2025.08.19 15:57:36.293,D:\Borland\Work.FMX\br2Console\fuMain.pas=D:\Borland\Work.FMX\Unit1.pas</Transaction>
+    <Transaction>2025.08.19 15:57:36.293,D:\Borland\Work.FMX\br2Console\fuMain.fmx=D:\Borland\Work.FMX\Unit1.fmx</Transaction>
+    <Transaction>2025.08.19 15:57:51.482,D:\Borland\Work.FMX\br2Console\Broker.dproj=D:\Borland\Work.FMX\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

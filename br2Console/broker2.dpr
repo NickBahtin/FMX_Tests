@@ -5,7 +5,8 @@ program broker2;
 {$R *.res}
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  ugprsbroker in 'ugprsbroker.pas';
 
 begin
   try

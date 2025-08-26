@@ -1,0 +1,83 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 368
+  ClientWidth = 448
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  DesignerMasterStyle = 0
+  object Memo1: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Align = Client
+    Size.Width = 448.000000000000000000
+    Size.Height = 336.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Viewport.Width = 444.000000000000000000
+    Viewport.Height = 332.000000000000000000
+  end
+  object Layout1: TLayout
+    Align = Bottom
+    Position.Y = 336.000000000000000000
+    Size.Width = 448.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    object Text1: TText
+      Align = Left
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Position.X = 5.000000000000000000
+      Position.Y = 5.000000000000000000
+      Size.Width = 132.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      Text = #1091#1088#1086#1074#1077#1085#1100' '#1086#1090#1083#1072#1076#1082#1080
+    end
+    object NumberBox1: TNumberBox
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Left
+      TabOrder = 1
+      Cursor = crIBeam
+      Value = 1.000000000000000000
+      Position.X = 147.000000000000000000
+      Position.Y = 5.000000000000000000
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = NumberBox1Change
+    end
+  end
+  object GPRSSrv: TIdTCPServer
+    Bindings = <>
+    DefaultPort = 10003
+    OnConnect = GPRSSrvConnect
+    OnDisconnect = GPRSSrvDisconnect
+    OnException = GPRSSrvException
+    OnExecute = GPRSSrvExecute
+    Left = 120
+    Top = 32
+  end
+  object OPCBroker: TIdTCPServer
+    Bindings = <>
+    DefaultPort = 10002
+    OnConnect = OPCBrokerConnect
+    OnDisconnect = OPCBrokerDisconnect
+    OnException = OPCBrokerException
+    ReuseSocket = rsTrue
+    OnExecute = OPCBrokerExecute
+    Left = 224
+    Top = 32
+  end
+end
